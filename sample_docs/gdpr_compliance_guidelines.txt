@@ -1,0 +1,5 @@
+Compliance Guidelines - Personal Data Handling
+
+Personal data may only be collected for a specified purpose and must not be kept longer than necessary. Customer personal data is retained for a maximum of 24 months after the contract ends, then securely deleted.
+
+Data subject requests (access, correction, deletion) must be answered within 30 days. Any transfer of personal data outside the European Economic Area requires a documented legal basis, such as standard contractual clauses, approved by the legal team.

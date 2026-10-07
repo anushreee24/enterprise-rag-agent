@@ -1,0 +1,7 @@
+IT Security Restricted - Data Breach Response Plan
+
+Step 1: any suspected breach must be reported to the security operations centre within one hour of discovery. Step 2: the incident commander isolates affected systems and preserves logs.
+
+Step 3: the compliance officer assesses whether personal data is involved. Regulators must be notified within 72 hours of confirming a personal data breach. Step 4: affected customers are notified without undue delay with a description of the incident and the steps being taken.
+
+The emergency incident bridge number and the break-glass admin procedure are held by the security team only.

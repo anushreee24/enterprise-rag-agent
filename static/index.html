@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Enterprise Knowledge Agent</title>
+<style>
+ body{font-family:system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem;color:#1a1a1a}
+ h1{font-size:1.3rem} input,select,button{font:inherit;padding:.5rem .7rem;border:1px solid #bbb;border-radius:6px}
+ button{background:#1f4e79;color:#fff;border:0;cursor:pointer} .row{display:flex;gap:.5rem;margin:.6rem 0}
+ .row input{flex:1} .card{border:1px solid #ddd;border-radius:8px;padding:.8rem 1rem;margin:.8rem 0}
+ .src{font-size:.85rem;color:#444;border-left:3px solid #1f4e79;padding-left:.6rem;margin:.5rem 0}
+ .tag{font-size:.7rem;background:#eef;border-radius:4px;padding:1px 6px;margin-left:4px} .muted{color:#666;font-size:.85rem}
+</style></head><body>
+<h1>Enterprise Knowledge Agent</h1>
+<div id="login" class="card">
+ <div class="row"><input id="u" placeholder="username (alice / hannah / frank / carl / root)"><input id="p" type="password" placeholder="password"><button onclick="login()">Sign in</button></div>
+ <div class="muted" id="lmsg"></div>
+</div>
+<div id="app" style="display:none">
+ <div class="muted" id="who"></div>
+ <div class="row"><input id="q" placeholder="Ask a question about company documents..." onkeydown="if(event.key==='Enter')ask()"><button onclick="ask()">Ask</button></div>
+ <div id="out"></div>
+</div>
+<script>
+let token=null;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function login(){
+ const r=await fetch('/auth/login',{method:'POST',body:new URLSearchParams({username:u.value,password:p.value})});
+ if(!r.ok){lmsg.textContent='Login failed';return}
+ const d=await r.json();token=d.access_token;
+ login_.style.display='none';app.style.display='block';who.textContent='Signed in as '+u.value+' ('+d.role+')';
+}
+const login_=document.getElementById('login'),app=document.getElementById('app');
+async function ask(){
+ out.innerHTML='<div class="muted">Searching...</div>';
+ const r=await fetch('/query',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({question:q.value})});
+ if(!r.ok){out.textContent='Error '+r.status;return}
+ const d=await r.json();
+ out.innerHTML='<div class="card"><div>'+esc(d.answer)+'</div><div class="muted">mode: '+esc(d.mode)+'</div></div>'+
+  d.sources.map(s=>'<div class="src"><b>['+s.n+'] '+esc(s.source)+'</b> p.'+s.page+'<span class="tag">'+esc(s.department)+'</span><span class="tag">'+esc(s.classification)+'</span><span class="tag">score '+s.score+'</span><br>'+esc(s.snippet)+'...</div>').join('');
+}
+</script></body></html>

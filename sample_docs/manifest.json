@@ -1,0 +1,9 @@
+[
+  {"file": "code_of_conduct.txt",            "department": "general",     "classification": "internal"},
+  {"file": "remote_work_policy.txt",         "department": "general",     "classification": "internal"},
+  {"file": "salary_bands_2026.txt",          "department": "hr",          "classification": "confidential"},
+  {"file": "q3_financial_forecast.txt",      "department": "finance",     "classification": "confidential"},
+  {"file": "data_breach_response_plan.txt",  "department": "it_security", "classification": "restricted"},
+  {"file": "gdpr_compliance_guidelines.txt", "department": "compliance",  "classification": "internal"},
+  {"file": "vendor_contract_terms.txt",      "department": "legal",       "classification": "confidential"}
+]
